@@ -1,7 +1,7 @@
 CREATE OR REPLACE FUNCTION fu_verificar_engajamento() RETURNS TABLE(nome VARCHAR, status VARCHAR) AS $$
 BEGIN
 	RETURN QUERY SELECT
-		u.nome,
+		u.email,
 		CASE
 			WHEN (NOW()-u.ultimo_acesso) < INTERVAL '2 days' THEN 'Alto-usuário'::varchar
 			WHEN (NOW()-u.ultimo_acesso) < INTERVAL '7 days' THEN 'Médio-usuário'::varchar
@@ -10,7 +10,7 @@ BEGIN
 			ELSE 'Sem classificação'::varchar
 		END
 	FROM usuario u
-	ORDER BY u.nome;
+	ORDER BY u.email;
 END;
 $$ LANGUAGE PLPGSQL;
 
