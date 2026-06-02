@@ -7,8 +7,10 @@ BEGIN
 			WHEN (NOW()-u.ultimo_acesso) < INTERVAL '7 days' THEN 'Médio-usuário'::varchar
 			WHEN (NOW()-u.ultimo_acesso) < INTERVAL '30 days' THEN 'Baixo-usuário'::varchar
 			WHEN u.ultimo_acesso IS NULL THEN 'Inexistente-usuário'::varchar
+			ELSE 'Sem classificação'::varchar
 		END
-	FROM usuario u;
+	FROM usuario u
+	ORDER BY u.nome;
 END;
 $$ LANGUAGE PLPGSQL;
 
